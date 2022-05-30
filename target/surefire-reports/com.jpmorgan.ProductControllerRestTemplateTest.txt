@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.jpmorgan.ProductControllerRestTemplateTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.313 s - in com.jpmorgan.ProductControllerRestTemplateTest
