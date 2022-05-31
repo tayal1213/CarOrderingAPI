@@ -22,6 +22,6 @@ public interface ProductRepository extends JpaRepository<ProductDetails, Long> {
     @Query(value =  "Update ProductDetails pd set pd.productStatus = ?2 WHERE pd.productId =?1")
     void updateProductStatus(Long id, String status);
 
-    @Query(value =  "SELECT new ProductDetails(pd.productId, pd.productName, pd.stockAvailble, pd.productInfo, pd.productStatus) from ProductDetails  pd where pd.productName=?1 ")
+    @Query(value =  "SELECT new ProductDetails(pd.productId, pd.productName, pd.stockAvailble, pd.productInfo, pd.productStatus) from ProductDetails  pd where pd.productName=?1 and pd.productStatus='ACTIVE'")
     ProductDetails findByProductName(String productName);
 }

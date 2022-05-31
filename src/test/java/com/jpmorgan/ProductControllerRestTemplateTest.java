@@ -56,8 +56,10 @@ public class ProductControllerRestTemplateTest {
     @Before
     public void init() {
         ProductDetails productDetails = new ProductDetails("Suzuki Swift", 2, "Suzuki Car Model Swift  Make 2019", "ACTIVE");
+        ProductDetails productDetailsBMW = new ProductDetails("BMW", 2, "Suzuki Car Model Swift  Make 2019", "INACTIVE");
         when(productRepository.findAllAvailbleProducts()).thenReturn(Arrays.asList(productDetails));
-        when(productRepository.findByProductName(anyString())).thenReturn(productDetails);
+        when(productRepository.findByProductName("Suzuki Swift")).thenReturn(productDetails);
+        when(productRepository.findByProductName("BMW")).thenReturn(null);
         when(mockRepository.findByUsername(anyString())).thenReturn(new CustomerInfo("","","",new Date()));
     }
 
@@ -136,6 +138,17 @@ public class ProductControllerRestTemplateTest {
     @Test
     public void test_buyProducts_OK() throws Exception {
         ProductBuyingRequest buyingRequest =new ProductBuyingRequest("Suzuki Swift", 2);
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<ProductBuyingRequest> request = new HttpEntity<>(buyingRequest, headers);
+        ResponseEntity<String> response = restTemplate
+                .withBasicAuth("atul", "password")
+                .postForEntity("/product/buy", request,String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void test_buyProducts_NOK() throws Exception {
+        ProductBuyingRequest buyingRequest =new ProductBuyingRequest("BMW", 1);
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<ProductBuyingRequest> request = new HttpEntity<>(buyingRequest, headers);
         ResponseEntity<String> response = restTemplate
