@@ -59,6 +59,8 @@ public class ProductController {
             }
 
         }
+        else
+            productRepository.updateProductStatus(id, "INACTIVE");
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "products/add")
